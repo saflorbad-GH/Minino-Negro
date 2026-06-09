@@ -1,0 +1,192 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body{
+    background-image: url("Minino-Negro-logo.png");
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: repeat-y;
+}
+
+.título-centrado {
+    text-align: center;
+}
+
+body{
+    font-family: Mounth;
+}
+
+@font-face {
+    font-family: Mounth;
+    src: url("Mounth.ttf");
+}
+
+h1 {
+  font-weight: normal;
+}
+
+/* ==========================================================================
+   1. EL CONTENEDOR PADRE (La Cuadrícula Inteligente)
+   ========================================================================== */
+.contenedor-padre-grid {
+    display: grid;
+    /* Crea columnas automáticas basadas en el ancho de la pantalla (mínimo 260px cada una) */
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    /* Espacio o separación limpia entre cada cuadro */
+    gap: 25px; 
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. LA TARJETA EN ESTADO NORMAL (Diseño base, bordes y espacios)
+   ========================================================================== */
+.tarjeta {
+    display: flex;
+    flex-direction: column; /* Coloca la imagen arriba y el contenido de texto abajo */
+    background-color: #ffffff;
+    
+    /* La orilla o borde para delimitar cada cuadro */
+    border: 1px solid #e0e0e0; 
+    border-radius: 12px; /* Esquinas redondeadas y limpias */
+    padding: 15px; /* Margen interno para que nada toque las orillas */
+    
+    box-sizing: border-box;
+    overflow: hidden; /* Evita que el contenido se desborde accidentalmente */
+    cursor: zoom-in; /* Muestra una lupa de aumento al pasar el mouse */
+    
+    /* Suaviza la transición si necesitas quitar la pantalla completa */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto visual opcional cuando pasas el mouse por encima */
+.tarjeta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   3. ELEMENTOS INTERNOS DE LA TARJETA (Imagen y Texto)
+   ========================================================================== */
+/* La imagen controlada para que no invada el texto */
+.imagen-tarjeta {
+    width: 100%;
+    height: 180px; /* Altura fija para que todas las tarjetas se vean simétricas */
+    object-fit: cover; /* Ajusta la foto perfectamente sin deformarla ni estirarla */
+    border-radius: 8px; /* Redondeado suave en las esquinas de la imagen */
+    margin-bottom: 12px; /* Separación obligatoria con el bloque de texto inferior */
+}
+
+/* El contenedor del contenido de texto */
+.contenido-tarjeta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Espacio exacto entre el título <h3> y el párrafo <p> */
+}
+
+.contenido-tarjeta h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+    font-family: sans-serif;
+}
+
+.contenido-tarjeta p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.4;
+    font-family: sans-serif;
+}
+
+/* ==========================================================================
+   4. VISOR DE GALERÍA FLOTANTE (Sobrepuesto en toda la página)
+   ========================================================================== */
+#galeria-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95); /* Fondo negro elegante */
+    z-index: 10000; /* Por encima de absolutamente todo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Clase para ocultar el visor cuando no se usa */
+.galeria-oculta {
+    display: none !important;
+    opacity: 0 !important;
+}
+
+/* Contenedor central de la foto y textos */
+.contenido-visor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 80%;
+    max-height: 80vh;
+}
+
+#imagen-maximizada {
+    max-width: 100%;
+    max-height: 70vh; /* Ajusta la foto para que no desborde la pantalla */
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Textos informativos debajo de la foto gigante */
+#titulo-maximizado {
+    color: #ffffff;
+    font-size: 1.8rem;
+    margin: 15px 0 5px 0;
+    font-family: sans-serif;
+}
+
+#texto-maximizado {
+    color: #cccccc;
+    font-size: 1.1rem;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/* ==========================================================================
+   5. BOTONES DE CONTROL (Cerrar y Flechas)
+   ========================================================================== */
+#boton-cerrar {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+#boton-cerrar:hover { color: #ff4d4d; }
+
+.flecha {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 15px;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s, background-color 0.2s;
+    border-radius: 5px;
+}
+.flecha:hover { color: #3498db; background-color: rgba(255,255,255,0.1); }
+#flecha-izq { left: 30px; }
+#flecha-der { right: 30px; }
